@@ -12,6 +12,7 @@
       justify-content: center;
       align-items: center;
       overflow: hidden;
+      height: 100vh;
     }
     #clock {
       color: #00ff00;
@@ -24,27 +25,21 @@
   </style>
 </head>
 <body>
-  <div id="clock">00:00:00.00</div>
+  <div id="clock">00:00:00.0</div>
 
   <script>
-    function setRealHeight() {
-      document.body.style.height = window.innerHeight + "px";
-    }
-    window.addEventListener("resize", setRealHeight);
-    setRealHeight();
-
     function updateClock() {
       const now = new Date();
       const hours = String(now.getHours()).padStart(2, '0');
       const minutes = String(now.getMinutes()).padStart(2, '0');
       const seconds = String(now.getSeconds()).padStart(2, '0');
-      const centiseconds = String(Math.floor(now.getMilliseconds() / 10)).padStart(2, '0');
+      const deciseconds = Math.floor(now.getMilliseconds() / 100); // فقط یک رقم
 
       document.getElementById("clock").textContent =
-        `${hours}:${minutes}:${seconds}.${centiseconds}`;
+        `${hours}:${minutes}:${seconds}.${deciseconds}`;
     }
 
-    setInterval(updateClock, 10);
+    setInterval(updateClock, 100);
     updateClock();
   </script>
 </body>
